@@ -2,9 +2,9 @@
 Contributors: maxfoundry, basszje
 Tags: wordpress share buttons, wordpress social share, social icons, facebook, twitter, instagram
 Requires at least: 4.8
-Tested up to: 6.1
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.19
+Stable tag: 1.20
 License: GPL V2
 
 Our Wordpress Share Button addon to MaxButtons and MaxButtons Pro plugins gets you up and sharing within minutes. It's easy to setup and offers flexibility only found in premium plugins.
@@ -56,6 +56,11 @@ Max Foundry also makes the WordPress Gallery plugin [MaxGalleria](https://maxgal
 * Download the ZIP file and use the WordPress plugin upload function
 
 == Changelog ==
+
+= 1.20 =
+
+* Fix - Minor XSS fix for add_query_arg in page editor
+* Fix - Deprecated notice custom network
 
 = 1.19 =
 

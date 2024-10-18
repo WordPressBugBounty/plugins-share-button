@@ -30,6 +30,8 @@ if ($the_collection_id === false && $number_of_collections > 0 )
 else {
 	$collection_id = 0;
 }
+
+$url = mbSocial()->get_page_url();
 ?>
 
 <form class='mb-ajax-form save-on-key' data-action='save-share'>
@@ -38,7 +40,7 @@ else {
 <?php if($number_of_collections > 0) : ?>
 <div class='help-side collection_switcher'>
 	<h3><?php _e('Your Social Groups','mbsocial'); ?></h3>
-	<?php //
+	<?php
 
 			echo '<div class="item heading"><span>' . __('name', 'mbsocial') . '</span><span>' .  __('no buttons', 'mbsocial') . '</span><span>' . __('shortcode', 'mbsocial') . '</span></div>';
 
@@ -57,7 +59,7 @@ else {
 
 			if ( Install::isPRO() )
 			{
-				$link = '<a href="' . add_query_arg('social_id', $id) . '"><span>' . $name . '</span>';
+				$link = '<a href="' . esc_url(add_query_arg('social_id', $id, $url)) . '"><span>' . $name . '</span>';
 				$linkend = '</a>';
 			}
 			else {
@@ -75,7 +77,7 @@ else {
 
 			if ( Install::isPRO() )
 			{
-				$link = '<a href="' . add_query_arg('social_id', 0) . '" title="' . __('Add', 'mbsocial') . '"> <span class="plus">+</span> ' . __('Add', 'mbsocial') . '</a>';
+				$link = '<a href="' . esc_url(add_query_arg('social_id', 0, $url)) . '" title="' . __('Add', 'mbsocial') . '"> <span class="plus">+</span> ' . __('Add', 'mbsocial') . '</a>';
 			}
 			else {
 				$link =  '<a><span class="plus">+</span> ' . __('Add', 'mbsocial') . '</a>';

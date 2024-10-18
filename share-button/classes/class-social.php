@@ -12,6 +12,8 @@ class mbSocialPlugin
 	protected $plugin_path;
 	protected $version;
 
+	protected $url; // pageURL
+
 	protected $networks;
 	protected $admin;
 
@@ -286,6 +288,11 @@ class mbSocialPlugin
  		return trailingslashit(plugin_dir_url(MBSOCIAL_ROOT_FILE));
  	}
 
+	public function get_page_url()
+	{
+		return $this->url;
+	}
+
  	public function get_version()
  	{
  		return MBSOCIAL_VERSION_NUM;
@@ -296,7 +303,10 @@ class mbSocialPlugin
 		if (Install::getIssue() == 'mb-wrong-version')
 			include_once($this->plugin_path . 'admin/update_mb.php');
 		else
+		{
+			$this->url = admin_url('?page=maxbuttons-social');
 			include_once($this->plugin_path . 'admin/page_editor.php');
+		}
  	}
 
 	public function load_settings_page()
@@ -304,7 +314,10 @@ class mbSocialPlugin
 		if (Install::getIssue() == 'mb-wrong-version')
 			include_once($this->plugin_path . 'admin/update_mb.php');
 		else
+		{
+			$this->url = admin_url('?page=maxbuttons-social-settings');
 			include_once($this->plugin_path . 'admin/page_settings.php');
+		}
 	}
 
 }

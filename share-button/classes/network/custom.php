@@ -36,11 +36,15 @@ class customNetwork extends mbNetwork
 
   public function load_settings($settings)
   {
+
+    if (isset($settings['name']))
+    {
+      $this->network = $settings['name'];
+      unset($settings['name']);
+    }
+
+
      parent::load_settings($settings);
 
-     if (isset($settings['name']))
-     {
-       $this->network = $settings['name'];
-     }
   }
 }
