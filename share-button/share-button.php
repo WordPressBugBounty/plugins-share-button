@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Wordpress Share Buttons
+Plugin Name: Share Buttons by MaxButtons
 Plugin URI: http://maxbuttons.com/share-button
-Description: Wordpress Social Share Buttons lets you easily setup Social Share Buttons on your site
+Description: Social Share Buttons for MaxButtons lets you easily setup Share Buttons on your site.
 Version: 1.20
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: mbsocial
 Domain Path: /languages
 
-Copyright 2022 Max Foundry, LLC (https://maxfoundry.com)
+Copyright 2025 Max Foundry, LLC (https://maxfoundry.com)
 */
 
 namespace MBSocial;

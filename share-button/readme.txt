@@ -1,20 +1,20 @@
-=== WordPress Social Share Buttons ===
+=== Social Share Buttons ===
 Contributors: maxfoundry, basszje
 Tags: wordpress share buttons, wordpress social share, social icons, facebook, twitter, instagram
 Requires at least: 4.8
-Tested up to: 6.6
-Requires PHP: 5.6
+Tested up to: 6.8
+Requires PHP: 7.0
 Stable tag: 1.20
 License: GPL V2
 
-Our Wordpress Share Button addon to MaxButtons and MaxButtons Pro plugins gets you up and sharing within minutes. It's easy to setup and offers flexibility only found in premium plugins.
+Our Share Button addon to MaxButtons and MaxButtons Pro plugins gets you up and sharing within minutes. It's easy to setup and offers flexibility only found in premium plugins.
 
 == Description ==
-WordPress Share Buttons is the share button addon to [MaxButtons](https://maxbuttons.com/?utm_source=repowp1&utm_medium=mbrepo&utm_content=mbr_maxbuttons&utm_campaign=mbr_maxbuttons).  It lets you easily setup and use social buttons on your home page, pages, and posts.
+Social Share Buttons is the share button addon to [MaxButtons](https://maxbuttons.com/?utm_source=repowp1&utm_medium=mbrepo&utm_content=mbr_maxbuttons&utm_campaign=mbr_maxbuttons).  It lets you easily setup and use social buttons on your home page, pages, and posts.
 
-WordPress Share Buttons gets you going in a minute with our beautifully designed presets. The plugin supports all popular networks:
+Social Share Buttons gets you going in a minute with our beautifully designed presets. The plugin supports all popular networks:
 
-Facebook, Twitter, Instagram, Pinterest, Linkedin, YouTube, Pinterest, VKontakte, StumbleUpon, Reddit, Whatsapp, Buffer and more
+Facebook, Twitter, Instagram, Pinterest, Linkedin, YouTube, Pinterest, StumbleUpon, Reddit, Whatsapp, Buffer and more
 
 ( PRO version allows more networks, we take requests! )
 
