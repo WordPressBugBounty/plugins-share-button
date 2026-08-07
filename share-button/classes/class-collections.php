@@ -286,6 +286,7 @@ class collections
 	 	$collection_id = intval($post_form["collection_id"]);
 
 		$admin = MB()->getClass('admin');
+		$collection = new collection();
 
 
 		if (! Install::isPro() && $collection_id == 0)
@@ -296,7 +297,7 @@ class collections
 				$result = array(
 							 "error" => true,
 				);
-				$admin->endAjaxRequest($result);
+				$collection->endAjaxRequest($result);
 			}
 		}
 
@@ -314,7 +315,6 @@ class collections
 	 			   "title" => __("Saved!","mbsocial"),
 	 	);
 
-		$collection = new collection();
 		$collection->set($collection_id);
 
 		// this can be a new id (!)
@@ -327,7 +327,7 @@ class collections
 
  	//	$result["title"] = $result_title["success"];
 
- 		$admin->endAjaxRequest($result);
+ 		$collection->endAjaxRequest($result);
  	}
 
 	static function ajax_remove_collection()
@@ -335,6 +335,8 @@ class collections
 		$admin = MB()->getClass('admin');
 
 		$collection_id = intval($_POST['param']);
+		$collection = new collection();
+
 
 		$url = admin_url('?page=maxbuttons-social');
 
@@ -351,13 +353,12 @@ class collections
 		$wpdb->delete($table, $where, $where_format);
 
 
-		$admin->endAjaxRequest($result);
+		$collection->endAjaxRequest($result);
 
 	}
 
  	static function ajax_action_front()
  	{
-
  		// only for trivial front page actions!
  		self::ajax_action(array("ajax_nopriv" => true));
  	}
@@ -368,7 +369,6 @@ class collections
  		$defaults = array("ajax_nopriv" => false);
  		$args = wp_parse_args($args, $defaults);
 
-
  	 	$admin = MB()->getClass('admin');
 
  		$nonce = isset($_POST["nonce"]) ? $_POST["nonce"] : false;
@@ -377,12 +377,29 @@ class collections
  		$block_data = (isset($_POST["block_data"])) ? $_POST["block_data"] : '';
  		$action  = sanitize_text_field($_POST["action"]);
 
+		// Weirdly only one, but security, lets checks this without changing other code too much 
+		$possible_actions =['mbsocial_get_count'];
+
  		$collection_id = intval($_POST["collection_id"]);
+		$collection = new collection($collection_id);
+
+		if (false === in_array($action, $possible_actions))
+		{
+				$result["error"] = true;
+				$result["body"] = __("Bad Action","maxbuttons");
+				$result["result"] = false;
+				$result["title"] = __("Security error","maxbuttons");
+				$result["data"] = array("id" => $collection_id);
+
+	 			$collection->endAjaxRequest($result);
+		}
+		
+
 	 //	$collection_type = sanitize_text_field($_POST["collection_type"]);
 
-		if(! $args["ajax_nopriv"])
-		{
-	 		if (! wp_verify_nonce($nonce, $action . "-" . $collection_id))
+		//if(! $args["ajax_nopriv"])
+		//{
+	 		if (! wp_verify_nonce($nonce, "maxsocial_ajax_action-" . $collection_id))
 	 		{
 	 			$result["error"] = true;
 				$result["body"] = __("Nonce not verified","maxbuttons");
@@ -390,10 +407,10 @@ class collections
 				$result["title"] = __("Security error","maxbuttons");
 				$result["data"] = array("id" => $collection_id);
 
-	 			$admin->endAjaxRequest($result);
+	 			$collection->endAjaxRequest($result);
 
 	 		}
-		}
+		//}
 
 	 	$result = array(
 	 			   "error" => false,
@@ -403,14 +420,11 @@ class collections
 	 			   "new_nonce" => 0,
 	 	);
 
- 		$collection = new collection($collection_id);
-
 		$result = $collection->doBlockAjax($result, $block_name, $block_action, $block_data);
 
 	 	//ob_end_clean();  // prevent PHP errors from breaking JSON response.
 
-	 	$admin->endAjaxRequest($result);
-	 			$results = $collection->get_meta($name, 'collection_name');
+	 	$collection->endAjaxRequest($result);
  	}
 
 

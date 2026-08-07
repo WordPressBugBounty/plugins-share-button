@@ -47,9 +47,7 @@ class countBlock extends block
 		$share_min_count = isset($blockdata['share_min_count']) ? $blockdata['share_min_count'] : 0;
 
 		// this can use some streamlining
-		//$network_block = $this->collection->getBlock('networkBlock');
-		//$share_data = $network_block->getShareData();
-		$share_url = $w->ask('display/vars/url'); //esc_url($share_data['url']);
+		$share_url = $w->ask('display/vars/url');
 
 		if ( ( $active == 1 || $this->showTotal() )  && $this->network->isCountable() )
 		{

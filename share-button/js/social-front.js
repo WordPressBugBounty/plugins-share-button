@@ -39,8 +39,9 @@ jQuery(document).ready(function($) {
 			action : 'mbsocial_get_count',
 			collection_id: collection_id,
 			block_data: block_data,
+			nonce: nonce, 
 		};
-//console.log(data);
+
 		$.ajax({
 			type: "POST",
 			url: ajax_url,
@@ -72,9 +73,11 @@ jQuery(document).ready(function($) {
 
 	$('.maxsocial .mb-item[data-onload]').each( function () {
 			var collection_id = $(this).parents('.maxsocial').data('collection');
+			var nonce = $(this).parents('.maxsocial').data('nonce');
 
  			var data = $(this).data('onload');
  			data.collection_id = collection_id;
+			data.nonce = nonce;
 
  			mbGetShareCount(this, data);
 

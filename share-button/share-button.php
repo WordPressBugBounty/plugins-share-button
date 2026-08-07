@@ -3,20 +3,20 @@
 Plugin Name: Share Buttons by MaxButtons
 Plugin URI: http://maxbuttons.com/share-button
 Description: Social Share Buttons for MaxButtons lets you easily setup Share Buttons on your site.
-Version: 1.20
+Version: 1.30
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: mbsocial
 Domain Path: /languages
 
-Copyright 2025 Max Foundry, LLC (https://maxfoundry.com)
+Copyright 2026 Max Foundry, LLC (https://maxfoundry.com)
 */
 
 namespace MBSocial;
 
 define("MBSOCIAL_ROOT_FILE", __FILE__);
-define('MBSOCIAL_VERSION_NUM', '1.20');
-define('MBSOCIAL_RELEASE',"18 October 2024");
+define('MBSOCIAL_VERSION_NUM', '1.30');
+define('MBSOCIAL_RELEASE',"07 August 2026");
 define('MBSOCIAL_REQUIRED_MB', '9.4');
 
 // load runtime.

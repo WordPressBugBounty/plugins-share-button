@@ -352,6 +352,22 @@ class collection
 		return $result;
 	}
 
+	public function endAjaxRequest($args = array())
+	{
+		$defaults = array(
+			"error" => true, // can have errors and still result true on success
+			"result" => true,
+			"body" => "",
+			"title" => "",
+			"data" => array(),
+			);
+
+		$args = wp_parse_args($args, $defaults);
+
+		echo json_encode($args);
+		die();
+	}
+
 	/** Save the collection post data to the database. This will invoke the save functions of the blocks itself to gather, verify and manipulate data */
 	public function save($post)
 	{
@@ -760,7 +776,7 @@ class collection
 
 	}
 
-	public function displayJS($js, $args = array() ) // $echo = true, $style_tag = true)
+	public function displayJS($js, $args = array() )
 	{
 		$default = array(
 			"echo" => true,
@@ -793,9 +809,7 @@ class collection
 
 		if ($args["js_tag"])
 		{
-			$output .= " // }
-					//	}
-			//	window.onload = MBcollection" . $this->collection_id . "();
+			$output .= " 
 				</script>		";
 		}
 
@@ -830,7 +844,7 @@ class collection
 		$collection_id = $this->collection_id;
 
 		$styleObj = $this->styleObj;
-		$style_class = '';  //$styleObj->class;
+		$style_class = '';
 		$style_class =  $this->orientation;
 
 		// create container
@@ -838,7 +852,7 @@ class collection
 		{
 			$style_class .= ' doc-' . self::$count;
 		}
-		$node = "<div class='maxsocial maxsocial-" . $collection_id . " $style_class ' data-collection='" . $collection_id . "'>
+		$node = "<div class='maxsocial maxsocial-" . esc_attr($collection_id) . " $style_class ' data-collection='" . $collection_id . "' data-nonce='" . wp_create_nonce('maxsocial_ajax_action-' . $collection_id)  . "''>
 					   </div>";
 		$node = apply_filters("maxbuttons/social/basic-container",$node);
 
@@ -878,7 +892,7 @@ class collection
 			$w->tell('display/parse/network', $network);
 
 			$button_args = array('link' => $network->get_url(),
-						  'preview' => $is_preview,
+						    'preview' => $is_preview,
 							'index' => $index,
 							'name' => $network->get('network'),
 							'data' => $this->data,
