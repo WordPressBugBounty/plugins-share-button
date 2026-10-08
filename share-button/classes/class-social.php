@@ -68,6 +68,8 @@ class mbSocialPlugin
 
 		remove_action('admin_init', array(maxUtils::namespaceit('maxAdmin'), 'do_review_notice'));
 		add_action('admin_init', array($this->admin(), 'do_review_notice'));
+
+		// Ajax request for review notice
 		add_action('maxbuttons/ajax/mbsocial_review_notice_status', array($this->admin(), 'save_review_notice'));
 
 		add_action('wp_ajax_maxbuttons_social_css', array($this->admin()->namespaceit('collections'), 'outputFileCSS'));

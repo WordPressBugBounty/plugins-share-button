@@ -61,7 +61,7 @@ class networkBlock extends block
 			 }
 		}
 
-		$itemObj->href = $url;
+		$itemObj->href = esc_url($url);
 
  		if ($is_popup)
  		{

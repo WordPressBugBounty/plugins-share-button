@@ -286,6 +286,11 @@ class admin
 			$current_user_id = get_current_user_id();
 			$version = MBSOCIAL_VERSION_NUM;
 
+			if (false === user_can($current_user_id, 'manage_options'))
+			{
+				 return false; 
+			}
+
 			$review = get_user_meta( $current_user_id, 'mbsocial_review_notice' , true );
 
 				if ($review == '')
@@ -331,8 +336,9 @@ class admin
 
 		public function save_review_notice()
 		{
-				$status = isset($_POST["status"]) ? sanitize_text_field($_POST["status"]) : '';
+			$status = isset($_POST["status"]) ? sanitize_text_field($_POST["status"]) : '';
 			$current_user_id = get_current_user_id();
+
 
 			$updated = false;
 
@@ -340,7 +346,6 @@ class admin
 			{
 				$updated = true;
 				update_user_meta($current_user_id, 'mbsocial_review_notice', 'off');
-
 			}
 			if ($status == 'later')
 			{

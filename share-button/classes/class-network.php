@@ -272,7 +272,7 @@ abstract class mbNetwork
 
 		$args = wp_parse_args($args, $defaults);
 		$html = "<span class='mb-item item-" . $item_index  . "'>
-								<a href='" . $args['link'] . "' class='mb-social '>
+								<a href='" . esc_url($args['link']) . "' class='mb-social '>
 						";
 
 		$html .= "</a></span>";

@@ -376,6 +376,14 @@ class mbSocialNetworks
 			parse_str($post['form'], $form);
 		}
 
+		if (false === current_user_can('manage_options'))
+		{
+			echo json_encode(
+				 array('success' => false,
+						'message' => 'failed access check', 
+			));
+		}
+
 		$name = $form['network'];
 
 		$network = $this->get($name);
@@ -408,10 +416,18 @@ class mbSocialNetworks
 
 		foreach($options as $item_name => $item_val)
 		{
+
 			if (isset($form[$item_name]) && $form[$item_name] != $item_val)
 			{
-					$value = sanitize_text_field($form[$item_name]);
-
+				  	if ('share_url' === $item_name || 'profile_url' === $item_name )
+					{
+						$value = esc_url_raw($item_val);
+					}
+					else
+					{
+						$value = sanitize_text_field($form[$item_name]);
+					}
+					
 					$store_options[$item_name] = $value;
 					$fields_replaced++;
  			}
