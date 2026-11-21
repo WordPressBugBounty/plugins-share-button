@@ -208,7 +208,7 @@ jQuery(document).ready(function(jq) {
 
 	maxSocial.prototype.savedCollection = function(event, result, status, object)
 	{
-		result = JSON.parse(result);
+		//result = JSON.parse(result);
 
 		if (result.error == true)
 		{
@@ -233,7 +233,7 @@ jQuery(document).ready(function(jq) {
 
 	maxSocial.prototype.deletedCollection = function(event, result, status, object)
 	{
-		result = JSON.parse(result);
+		//result = JSON.parse(result);
 
 		if (result.error == true)
 		{
@@ -425,7 +425,7 @@ jQuery(document).ready(function(jq) {
 	}
 
 	maxSocial.prototype.refreshBlockUpdate = function (result, status, object) {
-		var result = JSON.parse(result);
+		//var result = JSON.parse(result);
 		var content = result.content;
 		var blockname = result.block;
 		var self = this;
@@ -470,7 +470,7 @@ jQuery(document).ready(function(jq) {
 
 	maxSocial.prototype.displayPresetSelection = function(modal, result, status, object)
 	{
-		var result = JSON.parse(result);
+		//var result = JSON.parse(result);
 		var collection_id = $('input[name="collection_id"]').val();
 
 		var modal = modal[0]; // proxy gives an array

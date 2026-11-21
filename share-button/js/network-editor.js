@@ -23,7 +23,6 @@ jQuery(document).ready(function($) {
 
    mbsEditor.prototype.showSettings = function(e, result, status)
    {
-     result = JSON.parse(result);
 
      if (result.output)
      {
@@ -69,7 +68,6 @@ jQuery(document).ready(function($) {
 
    mbsEditor.prototype.showCustomNetworks = function (e, result, status)
    {
-        var result = JSON.parse(result);
         if (result.status == 'error')
         {
           $('.network_editor .inside').html('<h4 class="load-error">' + result.message + '</h4>');
@@ -89,7 +87,6 @@ jQuery(document).ready(function($) {
 
    mbsEditor.prototype.networksImported = function (e, result)
    {
-
        this.notifySaved(e, result);
        window.location.reload(true);
    }
@@ -135,30 +132,23 @@ jQuery(document).ready(function($) {
 
    mbsEditor.prototype.settingsUpdated = function(e, result, status)
    {
-     if (typeof result !== 'object')
-        var parsed_result = JSON.parse(result);
 
-      if (parsed_result.output)
+      if (result.output)
         this.showSettings(e, result, status);
 
       this.notifySaved(e, result, status);
 
-      if (parsed_result.reload)
+      if (result.reload)
       {
         window.location.reload(true);
       }
    }
 
-   mbsEditor.prototype.networkRemoved = function(e, result, status)
-   {
-
-   }
+ 
 
    mbsEditor.prototype.notifySaved = function(e,result,status)
    {
 
-     if (typeof result !== 'object')
-      var result = JSON.parse(result);
      var modal = window.maxFoundry.maxmodal;
 
      modal.newModal('save_done');

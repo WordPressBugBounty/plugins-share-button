@@ -278,16 +278,16 @@ class collections
 
  	static function ajax_save()
  	{
- 		$form = maybe_unserialize($_POST['form']);
+		mbSocial()->checkOptionsPermission();
+
 
  		$post_form = array();
- 		parse_str($form, $post_form);
+ 		parse_str($_POST['form'], $post_form);
 
 	 	$collection_id = intval($post_form["collection_id"]);
 
 		$admin = MB()->getClass('admin');
 		$collection = new collection();
-
 
 		if (! Install::isPro() && $collection_id == 0)
 		{
@@ -300,7 +300,6 @@ class collections
 				$collection->endAjaxRequest($result);
 			}
 		}
-
 
 
 	 	$close_text = __('Close', 'maxbuttons');
@@ -322,16 +321,12 @@ class collections
 
  		$result["data"]["id"] = $collection_id;
 
- 	//	$result["data"]["new_nonce"] = wp_create_nonce($action . "-" . $collection_id);
- 	//	$result["data"]["reload"] = apply_filters("collections_ajax_force_reload",$force_reload);
-
- 	//	$result["title"] = $result_title["success"];
-
  		$collection->endAjaxRequest($result);
  	}
 
 	static function ajax_remove_collection()
 	{
+		mbSocial()->checkOptionsPermission();
 		$admin = MB()->getClass('admin');
 
 		$collection_id = intval($_POST['param']);
@@ -383,7 +378,7 @@ class collections
  		$collection_id = intval($_POST["collection_id"]);
 		$collection = new collection($collection_id);
 
-		if (false === in_array($action, $possible_actions))
+		if (false === in_array($action, $possible_actions) || false === is_int($collection_id))
 		{
 				$result["error"] = true;
 				$result["body"] = __("Bad Action","maxbuttons");
@@ -394,11 +389,6 @@ class collections
 	 			$collection->endAjaxRequest($result);
 		}
 		
-
-	 //	$collection_type = sanitize_text_field($_POST["collection_type"]);
-
-		//if(! $args["ajax_nopriv"])
-		//{
 	 		if (! wp_verify_nonce($nonce, "maxsocial_ajax_action-" . $collection_id))
 	 		{
 	 			$result["error"] = true;
@@ -410,7 +400,6 @@ class collections
 	 			$collection->endAjaxRequest($result);
 
 	 		}
-		//}
 
 	 	$result = array(
 	 			   "error" => false,
@@ -430,6 +419,8 @@ class collections
 
 	public static function ajax_refreshblock()
 	{
+		mbSocial()->checkOptionsPermission();
+
 		$post = $_POST;
 		$collection_id = intval($_POST['collection_id']);
 		$target_class = sanitize_text_field($_POST['block_name']);
@@ -497,13 +488,10 @@ class collections
 
 	public static function ajax_getpresets()
 	{
-		$post = $_POST;
+		mbSocial()->checkOptionsPermission();
 		$admin = mbSocial()->admin();
 
-		$collection_id = isset($post['collection_id']) ? intval($post['collection_id']) : false;
-		//$current_style = isset($post['current_style']) ? sanitize_text_field($post['current_style']): false;
-
-		//$collection = new collection($collection_id);
+		$collection_id = isset($_POST['collection_id']) ? intval($_POST['collection_id']) : false;
 
 		$presets = new presets();
 		$sets = $presets->get();
@@ -562,12 +550,14 @@ class collections
 			}
 
 
-		echo json_encode($json);
+		wp_send_json($json);
 		exit();
 	}
 
 	public static function ajax_setPreset()
 	{
+		 mbSocial()->checkOptionsPermission();
+
 		 $collection_id = intval($_POST['collection_id']);
 		 $preset = sanitize_text_field($_POST['preset']);
 
@@ -575,7 +565,6 @@ class collections
 
 		$presets = new presets();
  		$sets = $presets->get();
- 		$labels = $presets->getLabels();
 
 		$do_set = json_decode($sets[$preset], ARRAY_A);
 

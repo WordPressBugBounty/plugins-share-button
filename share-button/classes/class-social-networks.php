@@ -155,8 +155,10 @@ class mbSocialNetworks
 
 	public function ajax_networksettings($post, $echo = true)
 	{
-		$network_name = sanitize_text_field($post['param']);
 
+		mbSocial()->checkOptionsPermission();
+
+		$network_name = sanitize_text_field($post['param']);
 		$network = $this->get($network_name);
 
 		if (! $network)
@@ -358,7 +360,7 @@ class mbSocialNetworks
 
 		if ($echo)
 		{
-			echo json_encode($output);
+			wp_send_json($output);
 			exit();
 		}
 		else {
@@ -369,20 +371,14 @@ class mbSocialNetworks
 	/** Save network settings */
 	public function ajax_savenetwork($post)
 	{
+		mbSocial()->checkOptionsPermission();
 
+		$form = array();
 		if (isset($post['form']))
 		{
-			$form = array();
 			parse_str($post['form'], $form);
 		}
 
-		if (false === current_user_can('manage_options'))
-		{
-			echo json_encode(
-				 array('success' => false,
-						'message' => 'failed access check', 
-			));
-		}
 
 		$name = $form['network'];
 
@@ -421,7 +417,7 @@ class mbSocialNetworks
 			{
 				  	if ('share_url' === $item_name || 'profile_url' === $item_name )
 					{
-						$value = esc_url_raw($item_val);
+						$value = esc_url_raw($form[$item_name]);
 					}
 					else
 					{
@@ -448,18 +444,21 @@ class mbSocialNetworks
 		$output = $this->ajax_networksettings($param, false);
 		$output = $output['output'];
 
-		echo json_encode(
-				 array('success' => true,
+		$json = array('success' => true,
 							 'reload' => false,
 							 'title' => __('Settings saved', 'mbsocial'),
 							 'output' => $output,
 							 'fields_replaced' => $fields_replaced,
-		));
+		);
+		wp_send_json($json);
 		exit('');
 	}
 
 	public function ajax_removesettings($post)
 	{
+
+			mbSocial()->checkOptionsPermission();
+
 			if (isset($post['form']))
 			{
 				$form = array();
@@ -504,17 +503,20 @@ class mbSocialNetworks
 						$output = $output['output'];
 			}
 
-			echo json_encode(
-					 array('success' => true,
+			$json = array('success' => true,
 								 'reload' => $reload,
 								 'output' => $output,
 								 'title' => __('Settings removed', 'mbsocial'),
-			));
+			);
+			wp_send_json($json);
 			exit('');
 	}
 
 	public function ajax_showcustomnetworks()
 	{
+
+			mbSocial()->checkOptionsPermission();
+
 				$license = MB()->getClass('license');
 				if (! $license)
 					return false; // something wrong
@@ -540,10 +542,9 @@ class mbSocialNetworks
 					// error
 					$output = array('status' => 'error',
 													'message' => __('Remote Error', 'mbsocial'),
+								);
 
-
-										);
-					echo json_encode($output);
+					wp_send_json($output);
 					exit();
 				}
 				else {
@@ -564,14 +565,13 @@ class mbSocialNetworks
 
 						$output = $this->parseCustomResult($result);
 
-						echo json_encode(
-										array(
+						$json = array(
 											'status' => 'success',
 											'output' => $output,
 											'title'  => __("Available additional networks", 'mbsocial'),
-						));
+						);
 
-
+						wp_send_json($json);
 						exit();
 				}
 
@@ -637,6 +637,8 @@ class mbSocialNetworks
 
 	public function ajax_importcustomnetworks($post)
 	{
+			mbSocial()->checkOptionsPermission();
+
 			$network_settings = $this->getNetworkSettings();
 			$custom_networks = get_transient('mbsocial-social-networks');
 
@@ -670,12 +672,11 @@ class mbSocialNetworks
 				update_option('mbsocial_network_settings',$network_settings );
 			}
 
-			echo json_encode(
-						array('status' => 'success',
+			$json = array('status' => 'success',
 									'import_count' => $import_count,
 									'title' => sprintf(__('%s Network(s) Imported','mbsocial'), $import_count),
-						)
-			);
+						);
+			wp_send_json($json);
 			exit();
 
 	}

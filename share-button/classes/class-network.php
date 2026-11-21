@@ -271,11 +271,10 @@ abstract class mbNetwork
 		}
 
 		$args = wp_parse_args($args, $defaults);
-		$html = "<span class='mb-item item-" . $item_index  . "'>
-								<a href='" . esc_url($args['link']) . "' class='mb-social '>
+		$html = "<span class='mb-item item-" . esc_attr($item_index)  . "'>
+				<a href='" . esc_url($args['link']) . "' class='mb-social '>
+				</a></span>
 						";
-
-		$html .= "</a></span>";
 
 		$button = \MaxButtons\str_get_html($html);
 		return $button;

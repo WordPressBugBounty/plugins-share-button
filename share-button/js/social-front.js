@@ -53,10 +53,10 @@ jQuery(document).ready(function($) {
 		});
 	}
 
-	function mbPutShareCount(result, el)
+	function mbPutShareCount(resJSON, el)
 	{
 
-		var resJSON = $.parseJSON(result);
+		//var resJSON = $.parseJSON(result);
 
 		var data = $(el).data('onload');
 		var threshold = parseInt(data.count_threshold);

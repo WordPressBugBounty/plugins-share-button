@@ -322,4 +322,20 @@ class mbSocialPlugin
 		}
 	}
 
+	public function checkOptionsPermission()
+	{
+		if (false === current_user_can('manage_options'))
+		{
+			$json = array('success' => false,
+						'message' => 'failed access check', 
+			);
+			wp_send_json($json);
+			exit(); 
+		}
+
+		return true; 
+
+	}
+
+
 }

@@ -83,7 +83,7 @@ class styleBlock extends block
 					if (is_object($anchor))
 					{
 							$anchor->class .= '  ';
-							$label_text = '<span class="mb-label">' . $label . '</span>';
+							$label_text = '<span class="mb-label">' . esc_html($label) . '</span>';
 			 				$anchor->innertext .= $label_text;
 			 	//	$itemObj->load($itemObj->save() );
 							$this->collection->getStyle()->addDisplay('label');

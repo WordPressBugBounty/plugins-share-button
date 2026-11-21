@@ -8,7 +8,7 @@ abstract class block
 	protected $collection = null;
 	protected $fields = array();
 	protected $fielddata = array();
-	protected $blockname;
+	protected $blockname = '';
 	protected $is_preview = false;
 
 	//protected static $eventInit = false;
@@ -17,8 +17,8 @@ abstract class block
 
 	public function __construct()
 	{
-				$w = MBSocial()->whistle();
-				$w->listen('display/parse/network', array($this, 'set_network'), 'tell');
+			$w = MBSocial()->whistle();
+			$w->listen('display/parse/network', array($this, 'set_network'), 'tell');
 	}
 
 	public function set_network($network)

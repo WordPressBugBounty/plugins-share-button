@@ -364,7 +364,7 @@ class collection
 
 		$args = wp_parse_args($args, $defaults);
 
-		echo json_encode($args);
+		wp_send_json($args);
 		die();
 	}
 
@@ -852,7 +852,7 @@ class collection
 		{
 			$style_class .= ' doc-' . self::$count;
 		}
-		$node = "<div class='maxsocial maxsocial-" . esc_attr($collection_id) . " $style_class ' data-collection='" . $collection_id . "' data-nonce='" . wp_create_nonce('maxsocial_ajax_action-' . $collection_id)  . "''>
+		$node = "<div class='maxsocial maxsocial-" . esc_attr($collection_id) . " $style_class ' data-collection='" . esc_attr($collection_id) . "' data-nonce='" . wp_create_nonce('maxsocial_ajax_action-' . $collection_id)  . "''>
 					   </div>";
 		$node = apply_filters("maxbuttons/social/basic-container",$node);
 

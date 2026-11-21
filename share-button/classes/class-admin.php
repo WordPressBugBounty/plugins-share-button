@@ -336,6 +336,9 @@ class admin
 
 		public function save_review_notice()
 		{
+			mbSocial()->checkOptionsPermission();
+
+
 			$status = isset($_POST["status"]) ? sanitize_text_field($_POST["status"]) : '';
 			$current_user_id = get_current_user_id();
 
